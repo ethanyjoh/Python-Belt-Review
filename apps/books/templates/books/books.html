@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Home Page</title>
+</head>
+<body>
+    <h3>Welcome, {{user.name}}!</h3>
+    <a href="/books/add">Add Book and Review</a>
+    <br>
+    <a href="/logout">Logout</a>
+
+    <h3>Recent Book Reviews:</h3>
+    {% for review in reviews %}
+        <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+        <p>
+            {% if review.rating == 1 %}
+                <i class="material-icons">star</i>
+            {% elif review.rating == 2 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% elif review.rating == 3 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% elif review.rating == 4 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% elif review.rating == 5 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+        {% endif %}
+        </p>
+        <p>{{review.user.name}} says: {{review.review}}</p>
+        <p>{{review.created_at}}</p>
+    {% endfor%}
+
+    <h3>Other Books with Reviews:</h3>
+    {% for book in books %}
+        <p><a href="/books/{{book.id}}">{{book.title}}</a></p>
+    {% endfor %}
+
+</body>
+</html>

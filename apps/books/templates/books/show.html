@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>{{book.title}}</title>
+</head>
+<body>
+    <a href="/books">Home</a>
+    <a href="/logout">Logout</a>
+    <h2>{{book.title}}</h2>
+    <h3>Author: {{book.author.name}}</h3>
+    <h3>Reviews:</h3>
+    {% for review in all_reviews %}
+        <p>
+            {% if review.rating == 1 %}
+                <i class="material-icons">star</i>
+            {% elif review.rating == 2 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% elif review.rating == 3 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% elif review.rating == 4 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% elif review.rating == 5 %}
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+                <i class="material-icons">star</i>
+            {% endif %}
+        </p>
+        <p><a href="/users/{{review.user.id}}">{{review.user.name}}</a> says: {{review.review}}</p>
+        <p>posted on {{review.created_at}}</p>
+    {% endfor %}
+
+    <form action="/review/{{book.id}}" method="post">
+        {% csrf_token %}
+        <p>Add a review:<textarea name="review" cols="30" rows="5"></textarea></p>
+            <p>Rating:
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </p>
+        <input type="submit" value="Submit Review">
+    </form>
+</body>
+</html>
